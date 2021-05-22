@@ -5,7 +5,7 @@ namespace XtronV2
 {
     class Game
     {
-        public Player Hero1 = new Player("", PlayerClass.Warrior);
+        public Player Hero1 = new Player("", PlayerClass.WARRIOR);
 
         public void StartGame()
         {
@@ -16,8 +16,7 @@ namespace XtronV2
             GameMenues.GenerateHeader();
             
             var MenuSelect = GameMenues.StartMenuSelect();
-            Console.WriteLine(MenuSelect);
-
+            XtronFunctions.ClearLine(7);
 
             switch (MenuSelect)
             {

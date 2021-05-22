@@ -18,16 +18,22 @@ namespace XtronV2
 
     public enum PlayerClass
     {
-        Warrior,Archer,Mage,Summoner,Ninja
+        WARRIOR,ARCHER,MAGE,SUMMONER,NINJA
     }
+
 
     public class Player : Units
     {
+
         public PlayerClass PlayerClass { get; set; }
         public int HP { get; set; }
         public int HPcurrent { get; set; }
         public int MP { get; set; }
         public int MPcurrent { get; set; }
+
+        public int STR { get; set; }
+        public int INT { get; set; }
+        public int AGI { get; set; }
 
         public Player(string name, PlayerClass playerClass)
             :base(name)
@@ -38,22 +44,23 @@ namespace XtronV2
 
             switch (PlayerClass)
             {
-                case PlayerClass.Warrior:
+                case PlayerClass.WARRIOR:
                     HP += 100;
+                    MP -= 20;
                     break;
-                case PlayerClass.Archer:
+                case PlayerClass.ARCHER:
                     HP += 50;
                     MP += 20;
                     break;
-                case PlayerClass.Mage:
+                case PlayerClass.MAGE:
                     HP -= 20;
                     MP += 100;
                     break;
-                case PlayerClass.Summoner:
+                case PlayerClass.SUMMONER:
                     HP -= 30;
                     MP += 120;
                     break;
-                case PlayerClass.Ninja:
+                case PlayerClass.NINJA:
                     HP += 20;
                     MP += 35;
                     break;
@@ -72,10 +79,15 @@ namespace XtronV2
             {
                 if (Repeat == true) XtronFunctions.ClearLine(1);
 
-                Console.Write("PLAYER NAME:>");
+                Console.Write($"\n   PLAYER NAME:>");
                 str = Console.ReadLine();
 
-                if (str != "" && str.All(char.IsLetter)) return str;
+                if (str != "" && str.All(char.IsLetter))
+                {
+                    XtronFunctions.ClearLine(1);
+                    Console.WriteLine($"   ADVENTURER {str.ToUpper()}, SELECT YOUR CLASS!\n");
+                    return str.ToUpper();
+                }
 
                 if (Repeat == false) Repeat = true;
             }
@@ -86,24 +98,18 @@ namespace XtronV2
 
             while (true)
             {
-
-                Console.Write("SELECT CLASS [");
                 for (int i = 0; i < Enum.GetNames(typeof(PlayerClass)).Length; i++)
                 {
-                    Console.Write($"{i+1}. {(PlayerClass)i}");
-                    if (i < Enum.GetNames(typeof(PlayerClass)).Length-1) Console.Write(" ");
+                    if (i == 0) Console.WriteLine($"   >> {(PlayerClass)i}");
+                    else Console.WriteLine($"      {(PlayerClass)i}");     
                 }
-                Console.WriteLine("]");
-
-                var ReturnKey = XtronFunctions.FindKeyInArray(XtronFunctions.GenerateNumKeyArray(Enum.GetNames(typeof(PlayerClass)).Length));
-                var ReturnKeyOut = Convert.ToInt32(ReturnKey.Substring(1, 1));
-
-                if (ReturnKeyOut <= Enum.GetNames(typeof(PlayerClass)).Length)
-                {
-                    return (PlayerClass)ReturnKeyOut - 1;
-                }
+                
+                var ReturnKeyOut = GameMenues.MenuBrowse(5, 3, 18, 25, ConsoleKey.X);
+                if (ReturnKeyOut <= Enum.GetNames(typeof(PlayerClass)).Length) return (PlayerClass)ReturnKeyOut - 1;
 
             }
+
+
         }
 
     }

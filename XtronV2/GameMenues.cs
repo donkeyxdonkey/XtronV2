@@ -103,22 +103,28 @@ namespace XtronV2
             if (Console.ForegroundColor == ConsoleColor.DarkRed) Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"{SmallTab}   EXIT\n\n");
             XtronFunctions.DrawLine(ConsoleColor.DarkGreen);
+                                    
+            int MenuSelect;            
+            return MenuSelect = MenuBrowse(3, 5, 16, 22);
+
+        }
+
+        public static int MenuBrowse(int MenuItems, int CursorX, int CursorY, int EndAtLine, ConsoleKey consoleKey = ConsoleKey.Enter)
+        {
 
             ConsoleKeyInfo keyInfo;
+            int MenuSelect = 1;
+            int StartY = CursorY;
 
-            var CursorX = 5;
-            var CursorY = 16;
-            var MenuSelect = 1;
-            Console.SetCursorPosition(CursorX, CursorY);
-            
             do
             {
-                keyInfo = Console.ReadKey(true);                
+                keyInfo = Console.ReadKey(true);
+                
 
                 switch (Convert.ToString(keyInfo.Key))
                 {
                     case "UpArrow":
-                        if (CursorY > 16)
+                        if (CursorY > StartY)
                         {
                             Console.SetCursorPosition(CursorX, CursorY);
                             Console.Write("  ");
@@ -126,10 +132,10 @@ namespace XtronV2
                             Console.SetCursorPosition(CursorX, CursorY);
                             Console.Write(">>");
                             MenuSelect--;
-                        }                        
+                        }
                         break;
                     case "DownArrow":
-                        if (CursorY < 18)
+                        if (CursorY < (StartY + MenuItems -1))
                         {
                             Console.SetCursorPosition(CursorX, CursorY);
                             Console.Write("  ");
@@ -137,15 +143,14 @@ namespace XtronV2
                             Console.SetCursorPosition(CursorX, CursorY);
                             Console.Write(">>");
                             MenuSelect++;
-                        }                        
+                        }
                         break;
                 }
-                Console.SetCursorPosition(0, 22);
+                Console.SetCursorPosition(0, EndAtLine);
 
-            } while (Convert.ToString(keyInfo.Key) != "Enter");
+            } while (Convert.ToString(keyInfo.Key) != Convert.ToString(consoleKey));
 
-            return MenuSelect;               
-
+            return MenuSelect;
         }
 
 
