@@ -22,22 +22,26 @@ namespace XtronF
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
 
-        public static string CorrectLetterOnlyInput()
+        public static string FindKeyInArray(string[] StringArray)
         {
-            var str = "";
-            var Repeat = false;
-
-            while (true)
+            ConsoleKeyInfo keyInfo;
+            do
             {
-                if (Repeat == true) ClearLine(1);
+                keyInfo = Console.ReadKey(true);
+            } while (!Array.Exists(StringArray, element => element == Convert.ToString(keyInfo.Key)));
+            return Convert.ToString(keyInfo.Key);
+        }
 
-                Console.Write("PLAYER NAME:>");
-                str = Console.ReadLine();
+        public static string[] GenerateNumKeyArray(int ZeroToDigit)
+        {
+            if (ZeroToDigit > 9) ZeroToDigit = 9;
 
-                if (str != "" && str.All(char.IsLetter)) return str;
-
-                if (Repeat == false) Repeat = true;
+            string[] ArrOut = new string[ZeroToDigit];
+            for (int i = 0; i < ZeroToDigit; i++)
+            {
+                ArrOut[i] = $"D{i + 1}";
             }
+            return ArrOut;
         }
 
     }
