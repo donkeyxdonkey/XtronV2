@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using XtronF; //XtronFunctions
 
 namespace XtronV2
@@ -9,9 +10,6 @@ namespace XtronV2
 
         public void StartGame()
         {
-            
-
-
             //STARTMENY
             GameMenues.GenerateHeader();
             
@@ -32,12 +30,10 @@ namespace XtronV2
                     break;
             }
 
-
-
-            
+            XtronFunctions.DelayStringWrite("Quack Quack Quack", 250);
+                        
             Console.ReadLine();
-
-
+                       
         }
         
     }

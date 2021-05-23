@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Diagnostics;
 
 namespace XtronF
 {
@@ -42,6 +42,27 @@ namespace XtronF
                 ArrOut[i] = $"D{i + 1}";
             }
             return ArrOut;
+        }
+
+        public static void DelayStringWrite(string InputString, int DelayMS)
+        {
+            var SW = new Stopwatch();
+            SW.Start();
+            var i = 0;
+
+            while (i < InputString.Length)
+            {
+                if (SW.ElapsedMilliseconds >= DelayMS)
+                {
+                    Console.Write(InputString[i]);
+                    i++;
+                    SW.Stop();
+                    SW.Reset();
+                    SW.Start();
+                }
+            }
+
+            SW.Stop();
         }
 
     }

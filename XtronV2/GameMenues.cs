@@ -97,7 +97,10 @@ namespace XtronV2
         public static int StartMenuSelect()
         {
             XtronFunctions.DrawLine(ConsoleColor.DarkGreen);
-            Console.WriteLine($"\n{SmallTab}>> NEW GAME");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write($"\n{SmallTab}>> ");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("NEW GAME");
             if (!File.Exists(@"gamesave.txt")) Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"{SmallTab}   CONTINUE");
             if (Console.ForegroundColor == ConsoleColor.DarkRed) Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -109,8 +112,9 @@ namespace XtronV2
 
         }
 
-        public static int MenuBrowse(int MenuItems, int CursorX, int CursorY, int EndAtLine, ConsoleKey consoleKey = ConsoleKey.Enter)
+        public static int MenuBrowse(int MenuItems, int CursorX, int CursorY, int EndAtLine, ConsoleKey consoleKey = ConsoleKey.X)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
 
             ConsoleKeyInfo keyInfo;
             int MenuSelect = 1;

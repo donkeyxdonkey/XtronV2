@@ -82,7 +82,7 @@ namespace XtronV2
                 Console.Write($"\n   PLAYER NAME:>");
                 str = Console.ReadLine();
 
-                if (str != "" && str.All(char.IsLetter))
+                if (str != "" && str.All(char.IsLetter)) //FIXA SÅ INTE ENTER FLYTTAR NER OM TOM INPUT
                 {
                     XtronFunctions.ClearLine(1);
                     Console.WriteLine($"   ADVENTURER {str.ToUpper()}, SELECT YOUR CLASS!\n");
@@ -95,16 +95,21 @@ namespace XtronV2
 
         public static PlayerClass SelectClass()
         {
-
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             while (true)
             {
                 for (int i = 0; i < Enum.GetNames(typeof(PlayerClass)).Length; i++)
                 {
-                    if (i == 0) Console.WriteLine($"   >> {(PlayerClass)i}");
+                    if (i == 0)
+                    {                        
+                        Console.Write("   >> ");
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine($"{(PlayerClass)i}");
+                    } 
                     else Console.WriteLine($"      {(PlayerClass)i}");     
                 }
                 
-                var ReturnKeyOut = GameMenues.MenuBrowse(5, 3, 18, 25, ConsoleKey.X);
+                var ReturnKeyOut = GameMenues.MenuBrowse(5, 3, 18, 25);
                 if (ReturnKeyOut <= Enum.GetNames(typeof(PlayerClass)).Length) return (PlayerClass)ReturnKeyOut - 1;
 
             }
